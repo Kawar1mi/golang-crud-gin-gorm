@@ -1,0 +1,23 @@
+version: "2.23.0"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: crud_gin_gorm
+    restart: no
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crud_gin_gorm
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: crud_gin_gorm_pgadmin
+    image: dpage/pgadmin4:latest
+    restart: no
+    environment:
+      PGADMIN_DEFAULT_EMAIL: noemail@noemail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
