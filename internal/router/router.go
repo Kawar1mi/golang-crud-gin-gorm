@@ -5,10 +5,14 @@ import (
 
 	"github.com/Kawar1mi/golang-crud-gin-gorm/internal/handler"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewRouter(tagsController *handler.TagsHandler) *gin.Engine {
 	router := gin.Default()
+	// add swagger
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	router.GET("", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, "welcome home")

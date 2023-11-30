@@ -1,9 +1,9 @@
 package main
 
 import (
-	"net/http"
 	"os"
 
+	_ "github.com/Kawar1mi/golang-crud-gin-gorm/docs"
 	"github.com/Kawar1mi/golang-crud-gin-gorm/internal/config"
 	"github.com/Kawar1mi/golang-crud-gin-gorm/internal/handler"
 	"github.com/Kawar1mi/golang-crud-gin-gorm/internal/helper"
@@ -15,6 +15,12 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// @title Tag Service API
+// @version	1.0
+// @description A Tag service API in Go using Gin framework
+
+// @host 	localhost:8888
+// @BasePath /v1
 func main() {
 
 	db := config.DatabaseConnection()
@@ -29,13 +35,9 @@ func main() {
 	router := router.NewRouter(tagHandler)
 
 	addr := os.Getenv("ADDR")
-	server := &http.Server{
-		Addr:    addr,
-		Handler: router,
-	}
 
 	log.Info().Msgf("starting server on: %s", addr)
 
-	err := server.ListenAndServe()
+	err := router.Run(addr)
 	helper.FatalIfError(err)
 }

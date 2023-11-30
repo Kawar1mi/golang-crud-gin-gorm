@@ -20,6 +20,14 @@ func NewTagsHandler(processor *processor.TagsProcessor) *TagsHandler {
 	return handler
 }
 
+// CreateTags		godoc
+// @Summary			Create tags
+// @Description		Save tags data in Db.
+// @Param			tags body request.CreateTagRequest true "Create tags"
+// @Produce			application/json
+// @Tags			tags
+// @Success			201 {object} response.Response{}
+// @Router			/tags [post]
 func (h *TagsHandler) Create(ctx *gin.Context) {
 	createTagRequest := request.CreateTagRequest{}
 
@@ -41,6 +49,15 @@ func (h *TagsHandler) Create(ctx *gin.Context) {
 	WrapOk(ctx, data, http.StatusCreated)
 }
 
+// UpdateTags		godoc
+// @Summary			Update tags
+// @Description		Update tags data.
+// @Param			tagId path string true "update tags by id"
+// @Param			tags body request.CreateTagRequest true  "Update tags"
+// @Tags			tags
+// @Produce			application/json
+// @Success			200 {object} response.Response{}
+// @Router			/tags/{tagId} [patch]
 func (h *TagsHandler) Update(ctx *gin.Context) {
 	updateTagRequest := request.UpdateTagRequest{}
 
@@ -67,6 +84,14 @@ func (h *TagsHandler) Update(ctx *gin.Context) {
 	WrapOk(ctx, nil, http.StatusOK)
 }
 
+// DeleteTags		godoc
+// @Summary			Delete tags
+// @Description		Remove tags data by id.
+// @Param			tagId path string true "delete tags by id"
+// @Produce			application/json
+// @Tags			tags
+// @Success			200 {object} response.Response{}
+// @Router			/tags/{tagId} [delete]
 func (h *TagsHandler) Delete(ctx *gin.Context) {
 
 	id, ok := getTagId(ctx)
@@ -83,6 +108,14 @@ func (h *TagsHandler) Delete(ctx *gin.Context) {
 	WrapOk(ctx, nil, http.StatusOK)
 }
 
+// FindByIdTags 		godoc
+// @Summary				Get Single tags by id.
+// @Description			Return the tahs whoes tagId valu mathes id.
+// @Param				tagId path string true "find tags by id"
+// @Produce				application/json
+// @Tags				tags
+// @Success				200 {object} response.Response{}
+// @Router				/tags/{tagId} [get]
 func (h *TagsHandler) GetById(ctx *gin.Context) {
 
 	id, ok := getTagId(ctx)
@@ -99,6 +132,12 @@ func (h *TagsHandler) GetById(ctx *gin.Context) {
 	WrapOk(ctx, tagResponse, http.StatusOK)
 }
 
+// FindAllTags 		godoc
+// @Summary			Get All tags.
+// @Description		Return list of tags.
+// @Tags			tags
+// @Success			200 {obejct} response.Response{}
+// @Router			/tags [get]
 func (h *TagsHandler) GetAll(ctx *gin.Context) {
 
 	tagsResponse, err := h.processor.GetAll()
